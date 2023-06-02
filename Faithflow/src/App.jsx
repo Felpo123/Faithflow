@@ -9,7 +9,7 @@ function App() {
   }, []);
 
   async function fetchApi() {
-    const url = 'https://iq-bible.p.rapidapi.com/GetSearch?query=Messiah&versionId=kjv';
+    const url = "key";
     const options = {
       method: 'GET',
       headers: {
