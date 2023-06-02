@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  async function fetchApi() {
+    const url = 'https://iq-bible.p.rapidapi.com/GetSearch?query=Messiah&versionId=kjv';
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'feb520f84dmsh1098756470d4753p1ae6c2jsn4394f4832ea6',
+        'X-RapidAPI-Host': 'iq-bible.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setResult(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        {result.map((item) => (
+          <p key={item.id}>{item.t}</p>
+        ))}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
