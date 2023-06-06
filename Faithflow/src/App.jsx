@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import { useState, useEffect } from "react";
 
 function App() {
   const [result, setResult] = useState([]);
@@ -11,11 +10,11 @@ function App() {
   async function fetchApi() {
     const url = "key";
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Key': 'feb520f84dmsh1098756470d4753p1ae6c2jsn4394f4832ea6',
-        'X-RapidAPI-Host': 'iq-bible.p.rapidapi.com'
-      }
+        "X-RapidAPI-Key": "feb520f84dmsh1098756470d4753p1ae6c2jsn4394f4832ea6",
+        "X-RapidAPI-Host": "iq-bible.p.rapidapi.com",
+      },
     };
 
     try {
@@ -29,9 +28,10 @@ function App() {
 
   return (
     <>
-        {result.map((item) => (
-          <p key={item.id}>{item.t}</p>
-        ))}
+      {result.map((item) => (
+        <p key={item.id}>{item.t}</p>
+      ))}
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </>
   );
 }
