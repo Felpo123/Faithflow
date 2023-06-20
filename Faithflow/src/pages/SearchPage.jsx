@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { keywordService } from "../service/keyword.js";
 import { chapterService } from "../service/chapters.js";
+import NavBar from "../components/NavBar.jsx";
 
 function SearchPage() {
   const [search, setSearch] = useState("");
@@ -22,8 +23,9 @@ function SearchPage() {
   };
 
   return (
+    
     <div className="max-w-4xl my-0 mx-auto">
-      <h1 className="text-3xl font-bold underline text-white">Hello world!</h1>
+      <NavBar></NavBar>
       <form
         className="flex justify-center items-center"
         onSubmit={handleSubmit}
