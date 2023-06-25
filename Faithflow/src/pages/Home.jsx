@@ -19,7 +19,7 @@ export default function Home() {
       </div>
       {/* Porción de texto oculta */}
       <div className={`my-0 w-[50vw] ease-in-out duration-300 ${showSecondVersion ? "translate-x-0": "translate-x-[50vw]"}`}>
-        <BibleText/>
+        <BibleText showSecondVersion/>
       </div>
     </div>
     <button onClick={handleToggleSecondVersion} className="fixed right-[-12px] top-1/2 pb-[2px] transition-all bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-l-full focus:outline-none focus:shadow-outline w-8 h-8 m-2">{showSecondVersion ? ">" : "<"}</button>

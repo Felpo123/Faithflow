@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { chapterService } from "../service/chapters.js";
 
-const BibleText = () => {
-    const [search, setSearch] = useState("");
-    const [book, setBook] = useState("");
-    const [version, setVersion] = useState("");
+const BibleText = ({showSecondVersion}) => {
+    const [search, setSearch] = useState("01");
+    const [book, setBook] = useState("01");
+    const [version, setVersion] = useState("kjv");
     const [result, setResult] = useState("");
   
     const handleSubmit = async (e) => {
@@ -15,12 +15,21 @@ const BibleText = () => {
       setResult(data);
       console.log(data);
     };
-  
+    
+
     const handleChange = (e) => {
       e.preventDefault();
       setSearch(e.target.value);
     };
-  
+    
+    useEffect( () => {
+      async function fetchData() {
+        const data = await chapterService({ book, chapter: search, version });
+        setResult(data);
+      }
+      if (!showSecondVersion) fetchData();	
+    }, [book, search, showSecondVersion, version])
+
     return (
       <div>
         <form
@@ -78,9 +87,9 @@ const BibleText = () => {
             Search
           </button>
         </form>
-        <div className="overflow-hidden flex flex-col justify-center items-center gap-2 p-5 text-justify">
+        <div className="overflow-auto flex flex-col items-center gap-2 p-5 text-justify max-h-[80vh]">
           {result &&
-            result.slice(0, 6).map((item) => (
+            result.map((item) => (
               <p className="w-[80%] text-white" key={item.id}>
                 <b>{item.verse}</b> {item.text}
               </p>
