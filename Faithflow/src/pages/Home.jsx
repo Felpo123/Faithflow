@@ -12,9 +12,7 @@ export default function Home() {
     <NavBar/>
     {/* Ambas porciones de texto */}
     <div className="flex justify-center gap-[70px]">
-      <div className={`my-0 w-[50vw] ease-in-out duration-300 ${
-            showSecondVersion ? "-translate-x-0" : "translate-x-[26vw]"
-          }`}>
+      <div className={`my-0 w-[50vw] min-w-[600px] ease-in-out duration-300 ${showSecondVersion ? "-translate-x-0" : "translate-x-[24vw]"}`}>
         <BibleText/>
       </div>
       {/* Porción de texto oculta */}

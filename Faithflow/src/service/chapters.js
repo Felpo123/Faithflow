@@ -1,4 +1,4 @@
-export async function chapterService({ book, chapter, version }) {
+export async function chaptersService({ book, chapter, version }) {
   if (book === "" || chapter === "" || version === "") return null;
   const url =
     import.meta.env.VITE_RAPIDAPI_URL +
