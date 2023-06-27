@@ -13,14 +13,14 @@ export async function explainService(text) {
           max_tokens: 1000,
           return_likelihoods: 'NONE',
           truncate: 'END',
-          prompt: 'Based on the following text, reflect on practical actions that I can make to be a better christian'+text
+          prompt: 'Based on the following text, reflect on practical actions that I can make to be a better christian: '+text
         }
       };
       
       axios
         .request(options)
         .then(function (response) {
-          return response.data
+          console.log(response.data)
         })
         .catch(function (error) {
           console.error(error);

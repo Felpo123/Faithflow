@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
-      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} />
+      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} showSecondVersion={showSecondVersion} />
       {/* Ambas porciones de texto */}
       <div className="flex justify-center gap-[70px]">
         <div

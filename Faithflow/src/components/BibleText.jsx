@@ -2,6 +2,9 @@ import { useState, useEffect, useRef} from "react";
 import { chaptersService} from "../service/chapters";
 import { explainService } from "../service/explain";
 import { books } from "../constants";
+import explain from '../assets/explain.png'
+import reflect from '../assets/reflect.png'
+import Icon from "./Icon";
 
 //XI1jcavKT08BhFcsZdKglKwiD2Rmls1kG6rsbYPX
 const BibleText = ({showSecondVersion}) => {
@@ -232,7 +235,10 @@ const BibleText = ({showSecondVersion}) => {
     const [result, setResult] = useState(data);
     const [bookChapters, setBookChapters] = useState("")
     const [showChangeChapter, setShowChangeChapter] = useState(false);
-  
+    const [showOptionsBox, setShowOptionsBox] = useState(false);
+    const [xCoordinate, setXCoordinate] = useState()
+    const [yCoordinate, setYCoordinate] = useState()
+
     const fetchBibleText = async () => {
       /* const data = await chaptersService({ book, chapter, version });
       setResult(data); */
@@ -263,12 +269,20 @@ const BibleText = ({showSecondVersion}) => {
     }, []);
     
 
-    const handleOnMouseUpBibleText = async () => {
-      let selectedText = `${window.getSelection().toString()}`;
+    const handleOnMouseUpBibleText = (e) => {
+      e.preventDefault()
+      setShowOptionsBox(true)
+      let selected = window.getSelection();
+      console.log(selected.getRangeAt(0).getBoundingClientRect())
+      let {x,y} = selected.getRangeAt(0).getBoundingClientRect();
+      setXCoordinate(x)
+      setYCoordinate(y)
+
+      /*
       console.log("Enviando a resumir: ", selectedText);
 
-      explainService(selectedText);
-      
+      const response = await explainService(selectedText); */
+
     }
 
     return (
@@ -321,7 +335,28 @@ const BibleText = ({showSecondVersion}) => {
                 <b>{item.verse}</b> {item.text}
               </p>
             ))}
+
         </div>
+        {/* Tailwind didnt help me when I tried to implement dynamic positioning. */}
+        <div className="flex flex-col rounded-md" style={{top: `${yCoordinate-119}px`, left: `${xCoordinate-170}px`, position:'absolute', backgroundColor: 'rgb(228, 232, 234)', width: "200px", height:"40px"}}>
+            {/* Functionalities */}
+            <div className="flex justify-center items-center gap-2 mt-[7px]">
+                <div className="bg-white w-6 h-6">
+                  <Icon image={reflect} name="reflect" disabled={false} isActive={false} styles=""/>
+                </div>
+                <div className="bg-white w-6 h-6">
+                <Icon image={explain} name="explain" disabled={false} isActive={false} styles="w-8 h-8 pb-2"/>
+                </div>
+                <div className="bg-white w-6 h-6">
+
+                </div>
+            </div>
+          <div className="w-0 h-0 mt-[4%] ml-[46%] border-[10px] border-x-transparent border-b-transparent border-t-[rgb(228, 232, 234)]">
+          </div>
+        </div>
+        {/* <div className={`absolute top-[${445.5}px] left-[${346.2}px] w-[30vw] h-[30vh] bg-sky-500`}>
+
+        </div> */}
       </div>
     );
   }

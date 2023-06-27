@@ -1,6 +1,10 @@
 import Form from "./Form";
 
-export default function NavBar({ setShowKeyword, showKeyword }) {
+export default function NavBar({
+  setShowKeyword,
+  showKeyword,
+  showSecondVersion,
+}) {
   return (
     <div className="flex items-center justify-center">
       <header className="flex items-center justify-around w-3/4 gap-96">
@@ -21,13 +25,17 @@ export default function NavBar({ setShowKeyword, showKeyword }) {
             </svg>
           </div>
           <img
-            src="public\faithflow.png"
+            src="\faithflow.png"
             alt="Faithflow Logo"
             className="w-28 h-16 aspect-auto pt-2"
           />
         </div>
         <div>
-          <Form setShowKeyword={setShowKeyword}  showKeyword={showKeyword}/>
+          <Form
+            setShowKeyword={setShowKeyword}
+            showKeyword={showKeyword}
+            showSecondVersion={showSecondVersion}
+          />
         </div>
       </header>
     </div>
