@@ -12,7 +12,7 @@ import React from 'react';
  * @returns {JSX.Element} - The rendered icon component.
  */
 const Icon = ({ name, image, handleClick, disabled, isActive, styles }) => (
-  <div className={`rounded-[50px] ${isActive && isActive === name && 'bg-[#96b6d78f]'} flex justify-center items-center ${!disabled && 'cursor-pointer'} ${styles}`} onClick={handleClick}>
+  <div className={`rounded-[50px] ${isActive && isActive === name && 'bg-[#96b6d78f]'} flex justify-center items-center ${!disabled && 'cursor-pointer'} ${styles} transition-all duration-300 ease-in-out`} onClick={handleClick} >
     {!isActive ? (
       <img src={image} alt="fund_logo" className="w-2/2 h-2/2" />
     ) : (

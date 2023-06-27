@@ -31,7 +31,7 @@ export default function Home() {
               : "translate-x-[24vw]"
           }`}
         >
-          <BibleText />
+          <BibleText showSecondVersion={false}/>
         </div>
         {/* Porción de texto oculta */}
         <div
@@ -41,7 +41,7 @@ export default function Home() {
               : "translate-x-[50vw]"
           }`}
         >
-          {showSecondVersion ? <BibleText showSecondVersion /> : null}
+          {showSecondVersion ? <BibleText showSecondVersion={true} /> : null}
           {showKeyword ? <Keyword showKeyword keyword={keyword} /> : null}
         </div>
       </div>
