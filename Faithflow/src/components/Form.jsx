@@ -1,9 +1,9 @@
 import React from "react";
 
-function Form({ setShowKeyword, showKeyword }) {
+function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
   const handleClick = (e) => {
     e.preventDefault();
-    setShowKeyword(!showKeyword);
+    if (!showSecondVersion) setShowKeyword(true);
   };
 
   return (
