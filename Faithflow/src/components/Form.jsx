@@ -1,14 +1,21 @@
 import React from "react";
 
-function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
+function Form({ setShowKeyword, setShowSecondVersion, showSecondVersion, setKeyword }) {
   const handleClick = (e) => {
     e.preventDefault();
-    if (!showSecondVersion) setShowKeyword(true);
+    if (!showSecondVersion ) {
+      setShowKeyword(true);
+      setKeyword(e.target.keyword.value); 
+    }else {
+      setShowSecondVersion(false);
+      setShowKeyword(true);
+      setKeyword(e.target.keyword.value); 
+    }
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleClick}>
         <div className="flex items-center justify-center">
           <div className="bg-transparent rounded-full border border-white flex">
             <input
@@ -16,9 +23,9 @@ function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
               type="text"
               name="keyword"
               placeholder="Input Keyword"
+              required
             />
             <button
-              onClick={handleClick}
               className="rounded-r-full bg-transparent transition-all bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none"
             >
               <svg

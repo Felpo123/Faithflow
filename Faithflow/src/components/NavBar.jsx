@@ -2,8 +2,9 @@ import Form from "./Form";
 
 export default function NavBar({
   setShowKeyword,
-  showKeyword,
+  setShowSecondVersion,
   showSecondVersion,
+  setKeyword,
 }) {
   return (
     <div className="flex items-center justify-center">
@@ -33,8 +34,9 @@ export default function NavBar({
         <div>
           <Form
             setShowKeyword={setShowKeyword}
-            showKeyword={showKeyword}
+            setShowSecondVersion={setShowSecondVersion}
             showSecondVersion={showSecondVersion}
+            setKeyword={setKeyword}
           />
         </div>
       </header>
