@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useState } from "react";
 
 function Form({ setShowKeyword, setShowSecondVersion, showSecondVersion, setKeyword }) {
   const handleClick = (e) => {
@@ -27,7 +28,7 @@ function Form({ setShowKeyword, setShowSecondVersion, showSecondVersion, setKeyw
             />
             <button
               className="rounded-r-full bg-transparent transition-all bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none"
-            >
+            > 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -46,6 +47,7 @@ function Form({ setShowKeyword, setShowSecondVersion, showSecondVersion, setKeyw
           </div>
         </div>
       </form>
+    
     </div>
   );
 }

@@ -5,13 +5,14 @@ import Keyword from "../components/Keyword";
 export default function Home() {
   const [showSecondVersion, setShowSecondVersion] = useState(false);
   const [showKeyword, setShowKeyword] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  const[keyword,setKeyword] = useState('');
 
   const handleToggleSecondVersion = () => {
     if (showKeyword) {
       setShowKeyword(!showKeyword);    
     }else setShowSecondVersion(!showSecondVersion);
   };
+  
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
@@ -26,7 +27,7 @@ export default function Home() {
               : "translate-x-[24vw]"
           }`}
         >
-          <BibleText />
+          <BibleText showSecondVersion={false}/>
         </div>
         {/* Porción de texto oculta */}
         <div

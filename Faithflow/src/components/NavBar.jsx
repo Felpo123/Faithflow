@@ -1,4 +1,5 @@
 import Form from "./Form";
+import { useState } from "react";
 
 export default function NavBar({
   setShowKeyword,
@@ -6,6 +7,9 @@ export default function NavBar({
   showSecondVersion,
   setKeyword,
 }) {
+  
+  
+
   return (
     <div className="flex items-center justify-center">
       <header className="flex items-center justify-around w-3/4 gap-96">

@@ -21,13 +21,14 @@ function Keyword({ keyword }) {
   };     
   
   const [results, setResults] = useState(data);
+  /* const data = keywordService(keyword); */
   return (
     <div className="text-white pt-16 space-y-[10px]">
       <p>Search results for: <span className="italic">{keyword}</span></p>
       {results && results.map((item) => (
         
         <p className="w-[100%] text-white" key={item.id}>
-          <span>{getBookName(item.b)} {item.c}:{item.v} </span>
+          <b fill="blue">{getBookName(item.b)} {item.c}:{item.v} </b>
           <b>{item.t}</b> 
           <b></b>
         </p>  
@@ -36,4 +37,4 @@ function Keyword({ keyword }) {
 
 }
 
-export default Keyword;
+
