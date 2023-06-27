@@ -1,6 +1,6 @@
 import Form from "./Form";
 
-export default function NavBar({ setShowKeyword }) {
+export default function NavBar({ setShowKeyword, showKeyword }) {
   return (
     <div className="flex items-center justify-center">
       <header className="flex items-center justify-around w-3/4 gap-96">
@@ -27,7 +27,7 @@ export default function NavBar({ setShowKeyword }) {
           />
         </div>
         <div>
-          <Form setShowKeyword={setShowKeyword} />
+          <Form setShowKeyword={setShowKeyword}  showKeyword={showKeyword}/>
         </div>
       </header>
     </div>

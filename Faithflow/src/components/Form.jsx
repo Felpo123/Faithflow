@@ -1,10 +1,9 @@
 import React from "react";
 
-function Form({ setShowKeyword }) {
+function Form({ setShowKeyword, showKeyword }) {
   const handleClick = (e) => {
     e.preventDefault();
-    setShowKeyword();
-    console.log("clicked");
+    setShowKeyword(!showKeyword);
   };
 
   return (
