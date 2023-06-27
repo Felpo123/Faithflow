@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useState } from "react";
 
-function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
-  const handleClick = (e) => {
+function Form({ setShowKeyword, showKeyword, showSecondVersion, callback}) {
+  const [keyword,setKeyword] = useState('');  
+  const handleEvent = (e) => {
+    setKeyword(e.target.value);
     e.preventDefault();
+  }
+  const handleClick = (e) => {
+    
     if (!showSecondVersion) setShowKeyword(true);
+    console.log("palabra: "+keyword);
+    callback(keyword);
+    e.preventDefault();
+
   };
 
   return (
@@ -16,11 +26,13 @@ function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
               type="text"
               name="keyword"
               placeholder="Input Keyword"
+              onChange={handleEvent}
+              value={keyword}
             />
             <button
               onClick={handleClick}
               className="rounded-r-full bg-transparent transition-all bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none"
-            >
+            > 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -39,6 +51,7 @@ function Form({ setShowKeyword, showKeyword, showSecondVersion }) {
           </div>
         </div>
       </form>
+    
     </div>
   );
 }

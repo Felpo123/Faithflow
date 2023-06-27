@@ -5,16 +5,23 @@ import Keyword from "../components/Keyword";
 export default function Home() {
   const [showSecondVersion, setShowSecondVersion] = useState(false);
   const [showKeyword, setShowKeyword] = useState(false);
+  const[keyword,setKeyword] = useState('');
 
   const handleToggleSecondVersion = () => {
     if (showKeyword && !showSecondVersion) {
       setShowKeyword(!showKeyword);
     } else setShowSecondVersion(!showSecondVersion);
   };
+  const finalCallback = (data) =>{
+    setKeyword(data);
+    console.log(keyword+" desde home");
+  
+
+  }
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
-      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} showSecondVersion={showSecondVersion} />
+      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} showSecondVersion={showSecondVersion} finalCallback={finalCallback} />
       {/* Ambas porciones de texto */}
       <div className="flex justify-center gap-[70px]">
         <div
@@ -35,7 +42,7 @@ export default function Home() {
           }`}
         >
           {showSecondVersion ? <BibleText showSecondVersion /> : null}
-          {showKeyword ? <Keyword showKeyword /> : null}
+          {showKeyword ? <Keyword showKeyword keyword={keyword} /> : null}
         </div>
       </div>
       <button

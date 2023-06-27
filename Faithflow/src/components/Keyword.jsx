@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { books } from "../constants";
+import { keywordService } from "../service/keyword";
 
-function Keyword({ showKeyword }) {
+export default function Keyword({ showKeyword , keyword}) {
+  
   const data = [
     {
       "id":"27009025",
@@ -20,8 +22,8 @@ function Keyword({ showKeyword }) {
 
   };     
   
-  const [keyword, setKeyword] = useState("Messiah");
   const [results, setResults] = useState(data);
+  /* const data = keywordService(keyword); */
   return (
     <div className="text-white pt-16 space-y-[10px]">
       <p>Search results for: <span className="italic">{keyword}</span></p>
@@ -29,7 +31,7 @@ function Keyword({ showKeyword }) {
       {results && results.map((item) => (
         
         <p className="w-[100%] text-white" key={item.id}>
-          <h1>{getBookName(item.b)} {item.c}:{item.v}</h1>
+          <h1 fill="blue">{getBookName(item.b)} {item.c}:{item.v}</h1>
           <b>{item.t}</b> 
           <b></b>
         </p>
@@ -38,4 +40,4 @@ function Keyword({ showKeyword }) {
 
 }
 
-export default Keyword;
+

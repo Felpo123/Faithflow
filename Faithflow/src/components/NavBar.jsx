@@ -1,10 +1,18 @@
 import Form from "./Form";
+import { useState } from "react";
 
 export default function NavBar({
   setShowKeyword,
   showKeyword,
-  showSecondVersion,
+  showSecondVersion, finalCallback
 }) {
+  const [keyword,setKeyword] = useState('');
+  const callback = (data) =>{
+    setKeyword(data);
+    finalCallback(keyword);
+
+  }
+
   return (
     <div className="flex items-center justify-center">
       <header className="flex items-center justify-around w-3/4 gap-96">
@@ -35,6 +43,7 @@ export default function NavBar({
             setShowKeyword={setShowKeyword}
             showKeyword={showKeyword}
             showSecondVersion={showSecondVersion}
+            callback={callback}
           />
         </div>
       </header>
