@@ -6,12 +6,8 @@ export default function NavBar({
   showKeyword,
   showSecondVersion, finalCallback
 }) {
-  const [keyword,setKeyword] = useState('');
-  const callback = (data) =>{
-    setKeyword(data);
-    finalCallback(keyword);
-
-  }
+  
+  
 
   return (
     <div className="flex items-center justify-center">
@@ -43,7 +39,7 @@ export default function NavBar({
             setShowKeyword={setShowKeyword}
             showKeyword={showKeyword}
             showSecondVersion={showSecondVersion}
-            callback={callback}
+            callback={finalCallback}
           />
         </div>
       </header>

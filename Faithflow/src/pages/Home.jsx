@@ -12,16 +12,11 @@ export default function Home() {
       setShowKeyword(!showKeyword);
     } else setShowSecondVersion(!showSecondVersion);
   };
-  const finalCallback = (data) =>{
-    setKeyword(data);
-    console.log(keyword+" desde home");
   
-
-  }
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
-      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} showSecondVersion={showSecondVersion} finalCallback={finalCallback} />
+      <NavBar setShowKeyword={setShowKeyword} showKeyword={showKeyword} showSecondVersion={showSecondVersion} finalCallback={setKeyword} />
       {/* Ambas porciones de texto */}
       <div className="flex justify-center gap-[70px]">
         <div

@@ -31,7 +31,7 @@ export default function Keyword({ showKeyword , keyword}) {
       {results && results.map((item) => (
         
         <p className="w-[100%] text-white" key={item.id}>
-          <h1 fill="blue">{getBookName(item.b)} {item.c}:{item.v}</h1>
+          <b fill="blue">{getBookName(item.b)} {item.c}:{item.v} </b>
           <b>{item.t}</b> 
           <b></b>
         </p>
