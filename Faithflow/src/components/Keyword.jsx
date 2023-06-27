@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { books } from "../constants";
 
-function Keyword({ keyword }) {
+export default function Keyword({ keyword }) {
   const data = [
     {
       "id":"27009025",
