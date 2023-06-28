@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BibleText, Form, NavBar } from "../components";
 import Keyword from "../components/Keyword";
+import { KeywordContext } from "../context/keywordContext.jsx";
 
 export default function Home() {
   const [showSecondVersion, setShowSecondVersion] = useState(false);
   const [showKeyword, setShowKeyword] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  const { keyword, setKeyword } = useContext(KeywordContext);
 
   const handleToggleSecondVersion = () => {
     if (showKeyword) {
