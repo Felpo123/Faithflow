@@ -1,23 +1,29 @@
 import { useState } from "react";
-import { BibleText, NavBar } from "../components";
+import { BibleText, Form, NavBar } from "../components";
 import Keyword from "../components/Keyword";
 
 export default function Home() {
   const [showSecondVersion, setShowSecondVersion] = useState(false);
   const [showKeyword, setShowKeyword] = useState(false);
-  const[keyword,setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
 
   const handleToggleSecondVersion = () => {
     if (showKeyword) {
-      setShowKeyword(!showKeyword);    
-    }else setShowSecondVersion(!showSecondVersion);
+      setShowKeyword(!showKeyword);
+    } else setShowSecondVersion(!showSecondVersion);
   };
-  
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
       {console.log(keyword)}
-      <NavBar setShowKeyword={setShowKeyword} setShowSecondVersion={setShowSecondVersion} showSecondVersion={showSecondVersion} setKeyword= {setKeyword} />
+      <NavBar>
+        <Form
+          setShowKeyword={setShowKeyword}
+          setShowSecondVersion={setShowSecondVersion}
+          showSecondVersion={showSecondVersion}
+          setKeyword={setKeyword}
+        />
+      </NavBar>
       {/* Ambas porciones de texto */}
       <div className="flex justify-center gap-[70px]">
         <div
@@ -27,7 +33,7 @@ export default function Home() {
               : "translate-x-[24vw]"
           }`}
         >
-          <BibleText showSecondVersion={false}/>
+          <BibleText showSecondVersion={false} />
         </div>
         {/* Porción de texto oculta */}
         <div
@@ -38,7 +44,7 @@ export default function Home() {
           }`}
         >
           {showSecondVersion ? <BibleText showSecondVersion /> : null}
-          {showKeyword ? <Keyword keyword= {keyword} /> : null}
+          {showKeyword ? <Keyword keyword={keyword} /> : null}
         </div>
       </div>
       <button
