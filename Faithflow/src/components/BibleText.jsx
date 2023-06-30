@@ -7,7 +7,7 @@ import reflect from '../assets/reflect.png'
 import Icon from "./Icon";
 import useMousePosition from "../hooks/useMousePosition";
 
-//XI1jcavKT08BhFcsZdKglKwiD2Rmls1kG6rsbYPX
+
 const BibleText = ({showSecondVersion}) => {
     const data = [
       {
