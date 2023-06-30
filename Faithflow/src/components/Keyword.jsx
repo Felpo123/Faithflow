@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { books } from "../constants";
+import { keywordService } from "../services/keywordService";
 
 export default function Keyword({ keyword }) {
   const data = [
@@ -18,10 +19,17 @@ export default function Keyword({ keyword }) {
   const getBookName = (book) => {
     return books[book - 1].n;
 
-  };     
-  
+  };
   const [results, setResults] = useState(data);
-  /* const data = keywordService(keyword); */
+  const fetchKeywordResults = async () => {
+    //const data = await keywordService(keyword);
+    //setResults(data);
+
+  }   
+  
+  useEffect(() => {
+    //fetchKeywordResults(keyword);
+  }, []);
   return (
     <div className="text-white pt-16 space-y-[10px]">
       <p>Search results for: <span className="italic">{keyword}</span></p>
