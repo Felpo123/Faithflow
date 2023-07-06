@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import { BibleText, Form, NavBar } from "../components";
-import Keyword from "../components/Keyword";
+import { BibleText, Form, NavBar, Keyword } from "../components";
 import { KeywordContext } from "../context/keywordContext.jsx";
 
 export default function Home() {
