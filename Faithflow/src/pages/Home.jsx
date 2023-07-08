@@ -15,7 +15,6 @@ export default function Home() {
 
   return (
     <div className="max-w-[95vw] my-0 mx-auto">
-      {console.log(keyword)}
       <NavBar>
         <Form
           setShowKeyword={setShowKeyword}
