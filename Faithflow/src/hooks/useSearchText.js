@@ -11,7 +11,7 @@ export function useSearchText() {
       console.log(book, chapter, version);
       setLoading(true);
       setError(null);
-      // const search = await chaptersService({ book, chapter, version });
+      const search = await chaptersService({ book, chapter, version });
       console.log(search);
       setResult(search);
     } catch (error) {
