@@ -3,10 +3,10 @@ import { useState } from "react";
 
 export default function NavBar({ children }) {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center pt-4">
       <header className="flex items-center justify-around w-3/4 gap-96">
         <div className="flex item-center justify-center gap-4">
-          <div className="w-6 h-6 pt-8">
+          <div className="w-6 h-6 pt-7">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -24,10 +24,10 @@ export default function NavBar({ children }) {
           <img
             src="\faithflow.png"
             alt="Faithflow Logo"
-            className="w-28 h-16 aspect-auto pt-2"
+            className="max-w-xs h-16 aspect-auto"
           />
         </div>
-        <div>{children}</div>
+        <div className="pt-3">{children}</div>
       </header>
     </div>
   );

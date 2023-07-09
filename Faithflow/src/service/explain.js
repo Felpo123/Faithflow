@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export async function explainService(text) {
   const options = {
     method: "POST",
@@ -9,22 +7,24 @@ export async function explainService(text) {
       "content-type": "application/json",
       authorization: `Bearer ${import.meta.env.VITE_COHERE_API_KEY}`,
     },
-    data: {
+    body: JSON.stringify({
       max_tokens: 1000,
       return_likelihoods: "NONE",
       truncate: "END",
+      randomness: 1.4,
       prompt:
-        "Based on the following text, reflect on practical actions that I can make to be a better christian: " +
+        "Explain the following in a way that it is easy to understand the key points. Dont repeat the bible verses, explain in bullet points: " +
         text,
-    },
+    }),
   };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  try {
+    const response = await fetch(options.url, options);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
