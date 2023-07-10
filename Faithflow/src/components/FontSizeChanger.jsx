@@ -15,13 +15,13 @@ function FontSizeChanger() {
         id="sizeText"
         className="w-10 appearance-none pl-1 border bg-transparent border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 text-white"
       >
-        <option value="lg" className="text-black">
+        <option value="18px" className="text-black">
           SM
         </option>
-        <option value="xl" className="text-black">
+        <option value="20px" className="text-black">
           L
         </option>
-        <option value="2xl" className="text-black">
+        <option value="24px" className="text-black">
           XL
         </option>
       </select>
