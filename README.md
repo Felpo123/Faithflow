@@ -1,6 +1,6 @@
 # FaithFlow
 
-FaithFlow is a powerful Bible study application that aims to provide users with an immersive and personalized experience for studying the Scriptures. Whether you're a student, pastor, or simply interested in deepening your understanding of the Bible, FaithFlow has you covered.
+FaithFlow is a powerful Bible study application that aims to provide users with an immersive and personalized experience for studying the Scriptures. Whether you're a student, pastor, or simply interested in deepening your understanding of the Bible, FaithFlow has you covered
 
 ## Installation
 
