@@ -21,7 +21,7 @@ export default function Home() {
           setShowSecondVersion={setShowSecondVersion}
           showSecondVersion={showSecondVersion}
           setKeyword={setKeyword}
-        />
+        />        
       </NavBar>
       {/* Ambas porciones de texto */}
       <div className="flex justify-center gap-[70px]">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { chaptersService } from "../service/chapters";
 import { explainService } from "../service/explain";
 import { reflectService } from "../service/reflect";
@@ -9,6 +9,7 @@ import close from "../assets/close.png";
 import Icon from "./Icon";
 import useMousePosition from "../hooks/useMousePosition";
 import { useSearchText } from "../hooks/useSearchText";
+import { KeywordContext } from "../context/keywordContext";
 
 const BibleText = ({ showSecondVersion }) => {
   const data = [
@@ -245,6 +246,7 @@ const BibleText = ({ showSecondVersion }) => {
   const { result, searchText, loading, error } = useSearchText();
   const [textToShowOnBox, setTextToShowOnBox] = useState("");
   const [isBoxTextLoading, setIsBoxTextLoading] = useState(false);
+  const { sizeText } = useContext(KeywordContext);
 
   const fetchBibleText = async ({ book, chapter, version }) => {
     searchText({
@@ -353,7 +355,7 @@ const BibleText = ({ showSecondVersion }) => {
             readOnly
             onFocus={() => setShowChangeChapter(true)}
             onBlur={() => setShowChangeChapter(false)}
-            className="rounded-[3px] w-[170px] m-2 px-2 py-1"
+            className={`rounded-[3px] w-[170px] m-2 px-2 py-1 text-${sizeText}`}
             ref={inputRef}
           />
 
@@ -362,7 +364,7 @@ const BibleText = ({ showSecondVersion }) => {
             onChange={handleSelectChange}
             name="version"
             id="version"
-            className="appearance-none bg-white border border-gray-300 px-2 py-1 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+            className={`"appearance-none bg-white border border-gray-300 px-2 py-1 rounded-md shadow-sm focus:outline-none focus:border-blue-500 text-${sizeText}`}
           >
             <option value="kjv">KJV</option>
             <option value="rv1909">Reina-Valera - 1909</option>
@@ -377,8 +379,10 @@ const BibleText = ({ showSecondVersion }) => {
         <div
           onMouseDown={(e) => e.preventDefault()}
           className={`${
-            showChangeChapter ? "w-[500px] h-[300px] bg-gray-700 " : "w-0 h-0"
-          } text-white rounded-[5px] transition-all duration-500 overflow-auto flex flex-col items-center text-justify max-h-[300px] mb-4`}
+            showChangeChapter
+              ? "min-w-[500px] w-auto h-[300px] bg-gray-700 "
+              : "w-0 h-0"
+          } text-white rounded-[5px] transition-all duration-500 overflow-auto flex flex-col items-center text-justify max-h-[300px] mb-4 text-${sizeText}`}
         >
           {books &&
             books.map((book) => (
@@ -423,15 +427,15 @@ const BibleText = ({ showSecondVersion }) => {
         className="overflow-auto flex flex-col items-center gap-2 p-5 text-justify max-h-[85vh]"
       >
         {loading ? (
-          <p className="text-white">Loading...</p>
+          <p className={`text-${sizeText} text-white`}>Loading...</p>
         ) : (
           result.map((item) => (
-            <p className="w-[100%] text-white text-xl" key={item.id}>
+            <p className={`w-[100%] text-white text-${sizeText}`} key={item.id}>
               <b>{item.verse}</b> {item.text}
             </p>
           ))
         )}
-        {error && <p className="text-white">Error...</p>}
+        {error && <p className={`text-${sizeText} text-white`}>Error...</p>}
       </div>
       {/* Tailwind didnt help me when I tried to implement dynamic positioning. */}
       {showOptionsBox && (
