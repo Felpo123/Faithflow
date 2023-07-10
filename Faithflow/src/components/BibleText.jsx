@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { chaptersService } from "../service/chapters";
 import { explainService } from "../service/explain";
 import { reflectService } from "../service/reflect";
@@ -9,6 +9,7 @@ import close from "../assets/close.png";
 import Icon from "./Icon";
 import useMousePosition from "../hooks/useMousePosition";
 import { useSearchText } from "../hooks/useSearchText";
+import { KeywordContext } from "../context/keywordContext";
 
 const BibleText = ({ showSecondVersion }) => {
   const data = [
@@ -243,8 +244,9 @@ const BibleText = ({ showSecondVersion }) => {
   const [yCoordinate, setYCoordinate] = useState();
   const mousePosition = useMousePosition();
   const { result, searchText, loading, error } = useSearchText();
-  const [textToShowOnBox, setTextToShowOnBox] = useState("")
-  const [isBoxTextLoading, setIsBoxTextLoading] = useState(false)
+  const [textToShowOnBox, setTextToShowOnBox] = useState("");
+  const [isBoxTextLoading, setIsBoxTextLoading] = useState(false);
+  const { sizeText } = useContext(KeywordContext);
 
   const fetchBibleText = async ({ book, chapter, version }) => {
     searchText({
@@ -257,13 +259,13 @@ const BibleText = ({ showSecondVersion }) => {
   const handleCloseOptions = (e) => {
     e.preventDefault();
     setShowOptionsBox(false);
-    setTextToShowOnBox("")
+    setTextToShowOnBox("");
   };
 
   const handleCloseText = (e) => {
     e.preventDefault();
-    setTextToShowOnBox("")
-  }
+    setTextToShowOnBox("");
+  };
 
   const handleBookClick = (book) => {
     if (bookChapters != book) setBookChapters(book);
@@ -298,38 +300,38 @@ const BibleText = ({ showSecondVersion }) => {
 
   const handleClickExplain = async (e) => {
     e.preventDefault();
-    setTextToShowOnBox("Preparando explicación...")
+    setTextToShowOnBox("Preparando explicación...");
     let selected = window.getSelection();
-    //get selected text 
+    //get selected text
     let selectedText = selected.toString();
 
     console.log("Enviando a explicar: ", selectedText);
 
     const response = await explainService(selectedText);
-    setTextToShowOnBox(response.generations[0].text)
+    setTextToShowOnBox(response.generations[0].text);
 
-    console.log(response)
-  }
+    console.log(response);
+  };
 
   const handleClickReflect = async (e) => {
     e.preventDefault();
-    setTextToShowOnBox("Reflexionando...")
+    setTextToShowOnBox("Reflexionando...");
     let selected = window.getSelection();
-    //get selected text 
+    //get selected text
     let selectedText = selected.toString();
-    
+
     console.log("Enviando a reflexionar: ", selectedText);
 
     const response = await reflectService(selectedText);
-    setTextToShowOnBox(response.generations[0].text)
+    setTextToShowOnBox(response.generations[0].text);
 
-    console.log(response)
-  }
+    console.log(response);
+  };
 
   const handleOnMouseUpBibleText = (e) => {
     e.preventDefault();
     setShowOptionsBox(true);
-    
+
     console.log(bibleTextDiv.current.getBoundingClientRect());
     setXCoordinate(
       mousePosition.x - bibleTextDiv.current.getBoundingClientRect().x - 100
@@ -353,7 +355,7 @@ const BibleText = ({ showSecondVersion }) => {
             readOnly
             onFocus={() => setShowChangeChapter(true)}
             onBlur={() => setShowChangeChapter(false)}
-            className="rounded-[3px] w-[170px] m-2 px-2 py-1"
+            className={`rounded-[3px] w-[170px] m-2 px-2 py-1 text-${sizeText}`}
             ref={inputRef}
           />
 
@@ -362,7 +364,7 @@ const BibleText = ({ showSecondVersion }) => {
             onChange={handleSelectChange}
             name="version"
             id="version"
-            className="appearance-none bg-white border border-gray-300 px-2 py-1 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+            className={`"appearance-none bg-white border border-gray-300 px-2 py-1 rounded-md shadow-sm focus:outline-none focus:border-blue-500 text-${sizeText}`}
           >
             <option value="kjv">KJV</option>
             <option value="rv1909">Reina-Valera - 1909</option>
@@ -377,8 +379,10 @@ const BibleText = ({ showSecondVersion }) => {
         <div
           onMouseDown={(e) => e.preventDefault()}
           className={`${
-            showChangeChapter ? "w-[500px] h-[300px] bg-gray-700 " : "w-0 h-0"
-          } text-white rounded-[5px] transition-all duration-500 overflow-auto flex flex-col items-center text-justify max-h-[300px] mb-4`}
+            showChangeChapter
+              ? "min-w-[500px] w-auto h-[300px] bg-gray-700 "
+              : "w-0 h-0"
+          } text-white rounded-[5px] transition-all duration-500 overflow-auto flex flex-col items-center text-justify max-h-[300px] mb-4 text-${sizeText}`}
         >
           {books &&
             books.map((book) => (
@@ -422,80 +426,82 @@ const BibleText = ({ showSecondVersion }) => {
         onMouseUp={handleOnMouseUpBibleText}
         className="overflow-auto flex flex-col items-center gap-2 p-5 text-justify max-h-[85vh]"
       >
-        {loading && <p className="text-white">Loading...</p>}
-        {error && <p className="text-white">Error...</p>}
-        {result &&
+        {loading ? (
+          <p className={`text-${sizeText} text-white`}>Loading...</p>
+        ) : (
           result.map((item) => (
-            <p className="w-[100%] text-white text-xl" key={item.id}>
+            <p className={`w-[100%] text-white text-${sizeText}`} key={item.id}>
               <b>{item.verse}</b> {item.text}
             </p>
-          ))}
+          ))
+        )}
+        {error && <p className={`text-${sizeText} text-white`}>Error...</p>}
       </div>
       {/* Tailwind didnt help me when I tried to implement dynamic positioning. */}
-      {showOptionsBox && <div
-        className="flex flex-col rounded-md"
-        style={{
-          top: `${yCoordinate}px`,
-          left: `${xCoordinate}px`,
-          position: "absolute",
-          backgroundColor: "rgb(228, 232, 234)",
-        }}
-      >
-        {/* Functionalities */}
-        <div >
-          { textToShowOnBox.length == 0 ? (
-            <div className="flex justify-center items-center gap-2 mt-[7px] w-[200px] h-[34px]">
-              <div className="w-0 h-0 absolute top-[-46%] left-[45%] border-[10px] border-x-transparent border-t-transparent border-b-[#e4e8ea]"></div>
-              <div onClick={(e) => handleCloseOptions(e)}>
-                <Icon
+      {showOptionsBox && (
+        <div
+          className="flex flex-col rounded-md"
+          style={{
+            top: `${yCoordinate}px`,
+            left: `${xCoordinate}px`,
+            position: "absolute",
+            backgroundColor: "rgb(228, 232, 234)",
+          }}
+        >
+          {/* Functionalities */}
+          <div>
+            {textToShowOnBox.length == 0 ? (
+              <div className="flex justify-center items-center gap-2 mt-[7px] w-[200px] h-[34px]">
+                <div className="w-0 h-0 absolute top-[-46%] left-[45%] border-[10px] border-x-transparent border-t-transparent border-b-[#e4e8ea]"></div>
+                <div onClick={(e) => handleCloseOptions(e)}>
+                  <Icon
                     image={close}
                     name="close"
                     disabled={false}
                     isActive={false}
                     styles="w-4 h-4 hover:w-5 hover:h-5 pb-2 absolute top-2 right-2"
-                  
                   />
                 </div>
-              <div className="w-6 h-6 " onClick={(e) => handleClickReflect(e)}>
-                <Icon
-                  image={reflect}
-                  name="reflect"
-                  disabled={false}
-                  isActive={false}
-                  styles="w-6 h-6 hover:w-7 hover:h-7"
-                
-                />
+                <div
+                  className="w-6 h-6 "
+                  onClick={(e) => handleClickReflect(e)}
+                >
+                  <Icon
+                    image={reflect}
+                    name="reflect"
+                    disabled={false}
+                    isActive={false}
+                    styles="w-6 h-6 hover:w-7 hover:h-7"
+                  />
+                </div>
+                <div className="w-6 h-6" onClick={(e) => handleClickExplain(e)}>
+                  <Icon
+                    image={explain}
+                    name="explain"
+                    disabled={false}
+                    isActive={false}
+                    styles="w-8 h-8 hover:w-9 hover:h-9 pb-2"
+                  />
+                </div>
               </div>
-              <div className="w-6 h-6" onClick={(e) => handleClickExplain(e)}>
-                <Icon
-                  image={explain}
-                  name="explain"
-                  disabled={false}
-                  isActive={false}
-                  styles="w-8 h-8 hover:w-9 hover:h-9 pb-2"
-
-                />
-              </div>
-          </div>
-          ) : (
-            <div className=" w-[300px] h-[200px] px-2 py-3 overflow-scroll">
-              <div className="w-0 h-0 absolute top-[-4.7%] left-[45%] border-[10px] border-x-transparent border-t-transparent border-b-[#e4e8ea]"></div>
-              <div onClick={(e) => handleCloseText(e)} >
-                <Icon
+            ) : (
+              <div className=" w-[300px] h-[200px] px-2 py-3 overflow-scroll">
+                <div className="w-0 h-0 absolute top-[-4.7%] left-[45%] border-[10px] border-x-transparent border-t-transparent border-b-[#e4e8ea]"></div>
+                <div onClick={(e) => handleCloseText(e)}>
+                  <Icon
                     image={close}
                     name="close"
                     disabled={false}
                     isActive={false}
                     styles="w-4 h-4 hover:w-5 hover:h-5 pb-2 absolute top-2 right-2"
-                  
                   />
                 </div>
                 <p>{textToShowOnBox}</p>
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-}
+      )}
       {/* <div className={`absolute top-[${445.5}px] left-[${346.2}px] w-[30vw] h-[30vh] bg-sky-500`}>
 
         </div> */}

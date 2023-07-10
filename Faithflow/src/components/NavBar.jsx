@@ -1,3 +1,4 @@
+import FontSizeChanger from "./FontSizeChanger";
 import Form from "./Form";
 import { useState } from "react";
 
@@ -27,7 +28,10 @@ export default function NavBar({ children }) {
             className="max-w-xs h-16 aspect-auto"
           />
         </div>
-        <div className="pt-3">{children}</div>
+        <div className="flex flex-row gap-6 pt-3">
+          <FontSizeChanger />
+          {children}
+        </div>
       </header>
     </div>
   );
