@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { books } from "../constants";
+import { keywordService } from "../service/keyword";
 
 export default function Keyword({ keyword }) {
-  const data = [
-    {
-      id: "27009025",
-      b: "27",
-      c: "9",
-      v: "25",
-      t: "Know therefore and understand, that from the going forth of the commandment to restore and to build Jerusalem unto the Messiah the Prince shall be seven weeks, and threescore and two weeks: the street shall be built again, and the wall, even in troublous times.",
-    },
-    {
-      id: "27009026",
-      b: "27",
-      c: "9",
-      v: "26",
-      t: "And after threescore and two weeks shall Messiah be cut off, but not for himself: and the people of the prince that shall come shall destroy the city and the sanctuary; and the end thereof shall be with a flood, and unto the end of the war desolations are determined.",
-    },
-  ];
+  const [results, setResults] = useState("");
   const getBookName = (book) => {
     return books[book - 1].n;
   };
-  const [results, setResults] = useState(data);
-  const fetchKeywordResults = async () => {
-    //const data = await keywordService(keyword);
-    //setResults(data);
+  
+  
+  const fetchKeywordResults = async (keyword) => {
+    const data = await keywordService(keyword);
+    setResults(data);
+    console.log(data);
+    console.log(keyword);
   };
+  
 
   useEffect(() => {
-    //fetchKeywordResults(keyword);
-  }, []);
+    fetchKeywordResults(keyword);
+  }, [keyword]);
   return (
     <div className="text-white pt-16 space-y-[10px]">
       <p>
@@ -39,9 +29,9 @@ export default function Keyword({ keyword }) {
         results.map((item) => (
           <p className="w-[100%] text-white" key={item.id}>
             <b fill="blue">
-              {getBookName(item.b)} {item.c}:{item.v}{" "}
+              {getBookName(item.book)} {item.chapter}:{item.verse}{" "}
             </b>
-            <b>{item.t}</b>
+            <b>{item.text}</b>
             <b></b>
           </p>
         ))}
